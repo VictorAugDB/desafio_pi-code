@@ -6,6 +6,7 @@
 Nessa aplicação é possível listar seus livros favoritos pré-cadastrados,
 cadastrar novos livros, procurar pelos seus livros favoritos e remover seus livros da lista.
 
+[Vídeo demonstrativo do projeto](https://www.youtube.com/watch?v=3IUtuRCViN8&feature=youtu.be)
 [Deploy do frontend](https://serene-colden-18f7d3.netlify.app)
 
 OBS: Está sem as funcionalidades, somente o visual.
