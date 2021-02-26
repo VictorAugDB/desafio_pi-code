@@ -14,6 +14,8 @@ OBS: Está sem as funcionalidades, somente o visual.
 
 ## Instruções para rodar o backend do app:
 
+### Entre na pasta backend
+
 ### Execute o comando
 > yarn
 #### ou
@@ -30,6 +32,8 @@ OBS: Está sem as funcionalidades, somente o visual.
 
 
 ## Instruções para rodar o frontend do app:
+
+### Entre na pasta frontend
 
 ### Execute o comando
 > yarn
