@@ -1,6 +1,6 @@
 import { shade } from 'polished';
 import { FiSearch } from 'react-icons/fi';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -121,12 +121,26 @@ export const FilterByTagContainer = styled.div`
   }
 `;
 
+const appearFromLeft = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
 export const BookContainer = styled.div`
   width: 40%;
   display: flex;
   justify-content: space-between;
 
   margin-top: 24px;
+
+  animation: ${appearFromLeft} 1s;
 
   background-color: #fff;
 
@@ -161,13 +175,19 @@ export const Data = styled.div`
   }
 
   span {
-    font-size: 22px;
-    color: #707070;
+    > p {
+      font-size: 22px;
+      color: #707070;
+      max-width: 600px;
+      text-align: justify;
+    }
   }
 `;
 
 export const Tag = styled.div`
   display: flex;
+  max-width: 600px;
+  flex-wrap: wrap;
 
   p {
     margin: 24px 8px 0 0;

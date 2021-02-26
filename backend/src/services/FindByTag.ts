@@ -15,7 +15,7 @@ class CreateBookService {
 
     const tags = books.filter(
       (book) => {
-        const array = JSON.parse(JSON.stringify(book.tags));
+        const array = JSON.parse(JSON.stringify(book.tags)).toLowerCase();
 
         return array.split(/\W+/).includes(tag);
       },

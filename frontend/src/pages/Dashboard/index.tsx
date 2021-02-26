@@ -3,7 +3,9 @@ import { FiCheckSquare, FiPlusSquare } from 'react-icons/fi';
 import { GiCancel } from 'react-icons/gi';
 import ConfirmModal from '../../components/ConfirmModal';
 import ModalAddFood from '../../components/ModalAddBook';
+import { useToast } from '../../hooks/toast';
 import api from '../../services/api';
+import { removerAcentosEspaco } from '../../utils/removerAcentos'
 
 import { Container, Icon, Header, UserActions, InputsContainer, SearchInputContainer, FilterByTagContainer, BookContainer, Data, Tag, ConfirmModalContent } from './styles';
 
@@ -22,6 +24,8 @@ const Dashboard: React.FC = () => {
   const [search, setSearch] = useState('');
   const [checked, setChecked] = useState(false);
   const [confirmModalOpen, setConfirmModalOpen] = useState(false);
+
+  const { addToast } = useToast();
 
   function toggleModal(): void {
     setModalOpen(!modalOpen);
@@ -67,10 +71,10 @@ const Dashboard: React.FC = () => {
         author: book.author,
         description: book.description,
         pages: book.pages,
-        tags: [book.tags]
+        tags: [removerAcentosEspaco(String(book.tags))]
       });
 
-      const array = JSON.parse(JSON.stringify(response.data.tags));
+      const [array] = response.data.tags.map((sl: string) => sl.split(', '));
 
       const bookFormatted = {
         id: response.data.id,
@@ -81,13 +85,19 @@ const Dashboard: React.FC = () => {
         tags: array
       }
 
-      console.log(bookFormatted);
-
       setBooks([...books, bookFormatted])
+
+      addToast({
+        type: 'success',
+        title: 'Livro adicionado!'
+      });
     } catch (err) {
-      console.log(err);
+      addToast({
+        type: 'error',
+        title: 'Erro ao adicionar'
+      });
     }
-  }, [books]);
+  }, [books, addToast]);
 
   const handleSearch = useCallback(async () => {
     if (checked) {
@@ -95,8 +105,6 @@ const Dashboard: React.FC = () => {
 
       const booksFormatted: IBookData[] = response.data.map((bookResponse: IBookData) => {
         const array = JSON.parse(JSON.stringify(bookResponse.tags));
-
-        console.log(array);
 
         const bookDivided = array.split(/\W+/)
 
@@ -112,7 +120,10 @@ const Dashboard: React.FC = () => {
       setBooks(booksFormatted)
     } else {
       const response = await api.get('/books');
-      const filteredBooks = response.data.filter((book: IBookData) => book.title.includes(search) || book.author.includes(search) || book.description.includes(search))
+      const filteredBooks = response.data.filter((book: IBookData) => book.title.toLowerCase().includes(search) || book.author.toLowerCase().includes(search) || book.description.toLowerCase().includes(search))
+
+      console.log(search)
+
 
       const booksFormatted: IBookData[] = filteredBooks.map((bookResponse: IBookData) => {
         const array = JSON.parse(JSON.stringify(bookResponse.tags));
@@ -129,7 +140,7 @@ const Dashboard: React.FC = () => {
         }
       })
 
-      setBooks(booksFormatted)
+      setBooks(booksFormatted);
     }
   }, [search, checked]);
 
@@ -139,6 +150,11 @@ const Dashboard: React.FC = () => {
     setBooks(books.filter(book => book.id !== id))
 
     setConfirmModalOpen(!confirmModalOpen)
+
+    addToast({
+      type: 'info',
+      title: 'Livro removido!'
+    });
   }
 
   return (
@@ -150,7 +166,7 @@ const Dashboard: React.FC = () => {
       <UserActions>
         <InputsContainer>
           <SearchInputContainer>
-            <input type="text" placeholder="Buscar" onChange={event => setSearch((event.target.value))} id="searchInput" />
+            <input type="text" placeholder="Buscar" onChange={event => setSearch((event.target.value.toLowerCase()))} id="searchInput" />
             <Icon onClick={handleSearch} />
           </SearchInputContainer>
           <FilterByTagContainer>
@@ -180,7 +196,9 @@ const Dashboard: React.FC = () => {
               <strong>{book.title}</strong>
               <p>{book.author} - {book.pages}</p>
             </div>
-            <span>{book.description}</span>
+            <span>
+              <p>{book.description}</p>
+            </span>
 
             <Tag>
               {book.tags.map(tag => (
@@ -211,7 +229,7 @@ const Dashboard: React.FC = () => {
                     type="button"
                     onClick={() => handleDeleteBook(book.id)
                     }>
-                    <p className="text">Adicionar</p>
+                    <p className="text">Remover</p>
                     <div className="icon">
                       <FiCheckSquare size={24} />
                     </div>
