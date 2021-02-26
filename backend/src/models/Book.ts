@@ -22,7 +22,7 @@ class Book {
     array: true,
     nullable: false,
   })
-  tags: string;
+  tags: string[];
 }
 
 export default Book;

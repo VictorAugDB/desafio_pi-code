@@ -147,7 +147,7 @@ export const BookContainer = styled.div`
   }
 `;
 export const Data = styled.div`
-  > div {
+  > div:first-child {
     strong {
         font-size: 24px;
         color: #707070;
@@ -164,12 +164,72 @@ export const Data = styled.div`
     font-size: 22px;
     color: #707070;
   }
+`;
 
-  > p {
-    margin-top: 24px;
+export const Tag = styled.div`
+  display: flex;
+
+  p {
+    margin: 24px 8px 0 0;
     color: #9466FF;
     font-size: 22px;
     font-weight: 300;
+    cursor: pointer;
+
+    transition: opacity 0.2s, text-decoration 0.2s;
+
+    &:hover {
+      text-decoration: underline;
+      color: ${shade(0.4, '#9466FF')};
+    }
+  }
+`;
+
+export const ConfirmModalContent = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  > p {
+    margin: 28px 0 28px 0;
+    font-size: 20px;
+    color: #707070;
+    text-align: center;
+  }
+
+  > div {
+    display: flex;
+    justify-content: space-around;
+
+    button {
+      font-weight: 600;
+      border-radius: 16px;
+      border: 0;
+      background: #9466FF;
+      color: #fff;
+      margin: 0 24px 16px 24px;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .text {
+        padding: 8px 8px;
+      }
+
+      .icon {
+        display: flex;
+        padding: 8px 8px;
+        background: #9126FA;
+        border-radius: 0 16px 16px 0;
+        margin: 0 auto;
+      }
+
+      transition: background 0.2s;
+
+      &:hover {
+        background: ${shade(0.2, '#9466FF')};
+      }
+    }
   }
 `;
 

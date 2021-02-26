@@ -6,7 +6,7 @@ interface Request {
   author: string;
   description: string;
   pages: number;
-  tags: string;
+  tags: string[];
 }
 
 class CreateBookService {

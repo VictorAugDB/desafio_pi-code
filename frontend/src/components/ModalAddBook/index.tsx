@@ -7,40 +7,44 @@ import { Form } from './styles';
 import Modal from '../Modal';
 import Input from '../Input';
 
-interface IFoodPlate {
-  id: number;
-  name: string;
-  image: string;
-  price: string;
+interface IBookData {
+  id: string,
+  title: string,
+  author: string;
   description: string;
-  available: boolean;
+  pages: number;
+  tags: string[];
 }
 
-interface ICreateFoodData {
+interface ICreateBookData {
   name: string;
-  image: string;
-  price: string;
+  title: string,
+  author: string;
   description: string;
+  pages: number;
+  tags: string[];
 }
 
 interface IModalProps {
   isOpen: boolean;
   setIsOpen: () => void;
-  handleAddFood?: (food: Omit<IFoodPlate, 'id' | 'available'>) => void;
+  handleAddBook: (book: Omit<IBookData, 'id'>) => void;
 }
 
-const ModalAddFood: React.FC<IModalProps> = ({
+const ModalAddBook: React.FC<IModalProps> = ({
   isOpen,
   setIsOpen,
+  handleAddBook,
 }) => {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(
-    async (data: ICreateFoodData) => {
+    async (data: ICreateBookData) => {
+      handleAddBook(data);
 
       setIsOpen();
     },
-    [setIsOpen],
+    [handleAddBook, setIsOpen],
   );
 
   return (
@@ -54,7 +58,7 @@ const ModalAddFood: React.FC<IModalProps> = ({
 
         <Input name="pages" placeholder="Número de páginas" />
 
-        <Input name="tags" placeholder="Ex: ciência, robótica, programação" />
+        <Input name="tags" placeholder="Ex: ciencia, robotica, programacao" />
         <div>
           <button type="reset" data-testid="reset-inputs">
             <p className="text">Cancelar</p>
@@ -74,4 +78,4 @@ const ModalAddFood: React.FC<IModalProps> = ({
   );
 };
 
-export default ModalAddFood;
+export default ModalAddBook;

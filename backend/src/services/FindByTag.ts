@@ -2,19 +2,23 @@ import { getRepository } from 'typeorm';
 import Book from '../models/Book';
 
 interface Request {
-  tag: string;
+  tag: string[];
 }
 
 class CreateBookService {
   public async execute({
     tag,
-  }: Request): Promise<Book | undefined> {
+  }: Request): Promise<Book[] | undefined> {
     const booksRepository = getRepository(Book);
 
     const books = await booksRepository.find();
 
-    const tags = books.find(
-      (book) => book.tags.split(/\W+/).includes(tag),
+    const tags = books.filter(
+      (book) => {
+        const array = JSON.parse(JSON.stringify(book.tags));
+
+        return array.split(/\W+/).includes(tag);
+      },
     );
 
     return tags;
