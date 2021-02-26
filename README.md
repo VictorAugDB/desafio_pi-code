@@ -12,7 +12,7 @@ OBS: Está sem as funcionalidades, somente o visual.
 
 ### Para rodar a aplicação e testar as funcionalidades é necessário seguir os passos abaixo.
 
-## Instruções para rodar o backend do app:
+## Instruções para rodar o backend do app
 
 ### Entre na pasta backend
 
@@ -31,7 +31,7 @@ OBS: Está sem as funcionalidades, somente o visual.
 > yarn dev:server
 
 
-## Instruções para rodar o frontend do app:
+## Instruções para rodar o frontend do app
 
 ### Entre na pasta frontend
 
