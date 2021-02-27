@@ -5,7 +5,7 @@ import ConfirmModal from '../../components/ConfirmModal';
 import ModalAddFood from '../../components/ModalAddBook';
 import { useToast } from '../../hooks/toast';
 import api from '../../services/api';
-import { removerAcentosEspaco } from '../../utils/removerAcentos'
+import { removeAccents } from '../../utils/removeAccents'
 
 import { Container, Icon, Header, UserActions, InputsContainer, SearchInputContainer, FilterByTagContainer, BookContainer, Data, Tag, ConfirmModalContent } from './styles';
 
@@ -71,7 +71,7 @@ const Dashboard: React.FC = () => {
         author: book.author,
         description: book.description,
         pages: book.pages,
-        tags: [removerAcentosEspaco(String(book.tags))]
+        tags: [removeAccents(String(book.tags))]
       });
 
       const [array] = response.data.tags.map((sl: string) => sl.split(', '));

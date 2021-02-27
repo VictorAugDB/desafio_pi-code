@@ -1,3 +1,3 @@
-export function removerAcentosEspaco(str: string) {
+export function removeAccents(str: string) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, '');
 }
