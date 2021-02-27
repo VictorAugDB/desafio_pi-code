@@ -26,6 +26,8 @@ OBS: Está sem as funcionalidades, somente o visual.
 ### Crie um container postgres no docker.
 > docker run --name desafio-picode -e POSTGRES_PASSWORD=root -p 5434:5432 -d postgres
 
+### Crie um dabatase com o nome desafio-picode
+
 ### Rode a migration com o comando:
 > yarn typeorm migration:run
 
