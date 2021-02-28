@@ -2,7 +2,7 @@ import { getRepository } from 'typeorm';
 import Book from '../models/Book';
 
 interface Request {
-  tag: string[];
+  tag: string;
 }
 
 class CreateBookService {
